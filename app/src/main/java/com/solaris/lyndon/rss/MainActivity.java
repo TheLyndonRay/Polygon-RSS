@@ -1,30 +1,23 @@
 package com.solaris.lyndon.rss;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Xml;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -83,14 +76,23 @@ public class MainActivity extends ListActivity {
             lv = getListView();
             lv.setTextFilterEnabled(true);
 
-            setListAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item, handler.getTitles()));
-
-            for (String title : handler.getTitles()) {
-
-            }
+            setListAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item, buildListItem()));
 
         }
     }
+
+    private ArrayList<String> buildListItem (){
+        ArrayList<String> listItem = new ArrayList<String>();
+
+        for (int i=0; i < handler.getTitles().size(); i++ )
+        {
+            listItem.add(handler.getTitles().get(i) + " \n " + handler.getPublishDates().get(i));
+        }
+
+        return listItem;
+    }
+
+
 
 
     @Override

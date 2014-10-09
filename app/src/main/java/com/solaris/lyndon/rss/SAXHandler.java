@@ -1,7 +1,7 @@
 package com.solaris.lyndon.rss;
 
-import org.xml.sax.helpers.DefaultHandler;
 import android.util.Log;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -12,11 +12,17 @@ import java.util.ArrayList;
 
 public class SAXHandler extends DefaultHandler {
     private ArrayList<String> titles;
-    private ArrayList<String> publisheds;
+    private ArrayList<String> publishDates;
 
     private boolean inEntry, inTitle, inPublished;
 
-    private StringBuffer sb;
+
+    public SAXHandler(){
+
+        titles = new ArrayList<String>();
+        publishDates = new ArrayList<String>();
+
+    }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXParseException, SAXException {
@@ -29,16 +35,28 @@ public class SAXHandler extends DefaultHandler {
             inTitle = true;
         }
 
+        if (qName.equals("published")){
+            inPublished = true;
+        }
+
     }
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         super.characters(ch, start, length);
+        String s = new String(ch, start, length);
 
         if (inEntry && inTitle){
-            String s = new String(ch, start, length);
+
             titles.add(s);
         }
+
+        if (inEntry && inPublished){
+
+            publishDates.add(s);
+        }
+
+
 
     }
 
@@ -54,10 +72,19 @@ public class SAXHandler extends DefaultHandler {
             inTitle = false;
         }
 
+        if (qName.equals("published")){
+            inPublished = false;
+        }
+
+
     }
 
     public ArrayList<String> getTitles() {
         return titles;
+    }
+
+    public ArrayList<String> getPublishDates() {
+        return publishDates;
     }
 
 
