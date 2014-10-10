@@ -14,8 +14,21 @@ public class ListItem {
         this.publishDate = publishDate;
     }
 
-    public String setTitle(String title){
+    protected void setTitle(String title){
+        this.title = title;
 
+    }
+
+    protected void setPublishDate(String publishDate){
+        this.publishDate = publishDate;
+    }
+
+    protected String getTitle(){
+        return title;
+    }
+
+    protected String getPublishDate(){
+        return publishDate;
     }
 
 }

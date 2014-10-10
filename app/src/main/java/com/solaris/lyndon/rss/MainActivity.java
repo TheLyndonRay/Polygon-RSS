@@ -17,12 +17,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 
 public class MainActivity extends ListActivity {
     public static final String FEED_URL = "http://www.polygon.com/rss/group/reviews/index.xml";
@@ -32,6 +33,8 @@ public class MainActivity extends ListActivity {
 
     RSSFeeder feedme;
     SAXHandler handler;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,8 @@ public class MainActivity extends ListActivity {
 
     private ArrayList<String> buildListItem (){
         ArrayList<String> listItem = new ArrayList<String>();
+
+
 
         for (int i=0; i < handler.getTitles().size(); i++ )
         {

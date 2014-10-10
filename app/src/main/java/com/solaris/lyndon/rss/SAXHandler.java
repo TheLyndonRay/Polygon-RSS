@@ -77,6 +77,8 @@ public class SAXHandler extends DefaultHandler {
         }
 
 
+
+
     }
 
     public ArrayList<String> getTitles() {
