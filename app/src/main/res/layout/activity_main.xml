@@ -9,12 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        android:textColor="#000000"
         />
     <TextView
         android:id="@+id/pub_date"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="8dp"
-        android:textStyle="italic"/>
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:textColor="#000000"/>
 </LinearLayout>

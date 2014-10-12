@@ -26,14 +26,13 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends ListActivity {
-    public static final String FEED_URL = "http://www.polygon.com/rss/group/news/index.xml";
-    public URL xml_file;
-    public BufferedReader in;
-    protected ListView lv;
+    public static final String FEED_URL = "http://www.polygon.com/rss/group/news/index.xml"; // Needed in RSSFeeder class
+    public URL xml_file; // Needed in RSSFeeder class
+    public BufferedReader in; // Needed in RSSFeeder class
+    protected ListView lv; // Needed in RSSFeeder class
 
     RSSFeeder feedme;
     SAXHandler handler;
-
 
 
     @Override
@@ -42,6 +41,8 @@ public class MainActivity extends ListActivity {
 
         feedme = new RSSFeeder();
         feedme.execute();
+
+
 
     }
 
