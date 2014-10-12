@@ -79,20 +79,21 @@ public class MainActivity extends ListActivity {
             lv = getListView();
             lv.setTextFilterEnabled(true);
 
-            setListAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.list_item, buildListItem()));
+            setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext()));
 
         }
     }
 
-    private ArrayList<String> buildListItem (){
-        ArrayList<String> listItem = new ArrayList<String>();
+    private ArrayList<ListItem> buildListItem (){
+        ArrayList<ListItem> listItems = new ArrayList<ListItem>();
 
         for (int i=0; i < handler.getTitles().size() ; i++ )
         {
-            listItem.add(handler.getTitles().get(i) + " \n " + handler.getPublishDates().get(i));
+            ListItem currentItem = new ListItem(handler.getTitles().get(i), handler.getPublishDates().get(i));
+            listItems.add(currentItem);
         }
 
-        return listItem;
+        return listItems;
     }
 
 
