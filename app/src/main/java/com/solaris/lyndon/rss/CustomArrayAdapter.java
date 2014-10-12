@@ -38,7 +38,7 @@ public class CustomArrayAdapter extends ArrayAdapter<ListItem> {
         // Creates the views
         TextView titleView = (TextView)convertView.findViewById(R.id.title);
         TextView pubDateView = (TextView)convertView.findViewById(R.id.pub_date);
-        ListItem currentItem = listItems.get(position);
+        ListItem currentItem = listItems.get(position); // I don't understand how this works
 
         titleView.setText(currentItem.getTitle()); //Sets it
         pubDateView.setText(currentItem.getPublishDate()); //Sets it

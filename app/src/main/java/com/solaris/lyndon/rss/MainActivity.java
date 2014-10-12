@@ -27,6 +27,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends ListActivity {
     public static final String FEED_URL = "http://www.polygon.com/rss/group/news/index.xml"; // Needed in RSSFeeder class
+    public String currentURL = FEED_URL;
     public URL xml_file; // Needed in RSSFeeder class
     public BufferedReader in; // Needed in RSSFeeder class
     protected ListView lv; // Needed in RSSFeeder class
@@ -42,17 +43,22 @@ public class MainActivity extends ListActivity {
         feedme = new RSSFeeder();
         feedme.execute();
 
-
-
     }
 
+    protected void updateList (String newURL){
+
+        lv.setAdapter(null);
+        currentURL = newURL;
+        feedme = new RSSFeeder();
+        feedme.execute();
+    }
 
     public class RSSFeeder extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                xml_file = new URL(FEED_URL);
+                xml_file = new URL(currentURL);
                 in = new BufferedReader(new InputStreamReader(xml_file.openStream()));
 
                 SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -113,8 +119,24 @@ public class MainActivity extends ListActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id) {
+            case R.id.news :
+
+                updateList("http://www.polygon.com/rss/group/news/index.xml");
+                break;
+            case R.id.reviews :
+
+                updateList("http://www.polygon.com/rss/group/reviews/index.xml");
+                break;
+            case R.id.features :
+
+                updateList("http://www.polygon.com/rss/group/features/index.xml");
+                break;
+            case R.id.all :
+
+                updateList("http://www.polygon.com/rss/index.xml");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

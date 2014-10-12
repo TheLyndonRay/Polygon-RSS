@@ -1,8 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
+    <item android:id="@+id/news"
+        android:title="@string/news"
+        android:orderInCategory="1"
+        android:showAsAction="never" />
+    <item android:id="@+id/reviews"
+        android:title="@string/reviews"
+        android:orderInCategory="2"
+        android:showAsAction="never" />
+    <item android:id="@+id/features"
+        android:title="@string/features"
+        android:orderInCategory="3"
+        android:showAsAction="never" />
+    <item android:id="@+id/all"
+        android:title="@string/all"
+        android:orderInCategory="4"
         android:showAsAction="never" />
 </menu>
