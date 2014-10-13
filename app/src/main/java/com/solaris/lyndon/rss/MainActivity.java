@@ -1,11 +1,14 @@
 package com.solaris.lyndon.rss;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -27,10 +30,14 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends ListActivity {
     public static final String FEED_URL = "http://www.polygon.com/rss/group/news/index.xml"; // Needed in RSSFeeder class
+    public static final int GET_NAME_REQUEST_CODE = 0;
     public String currentURL = FEED_URL;
     public URL xml_file; // Needed in RSSFeeder class
     public BufferedReader in; // Needed in RSSFeeder class
     protected ListView lv; // Needed in RSSFeeder class
+
+    protected ArrayList<ListItem> listItems;
+    protected ListItem currentItem;
 
     RSSFeeder feedme;
     SAXHandler handler;
@@ -83,20 +90,38 @@ public class MainActivity extends ListActivity {
         @Override
         protected void onPostExecute(Void result) {
 
-            lv = getListView();
-            lv.setTextFilterEnabled(true);
+            lv = getListView(); // Don't understand this
+            lv.setTextFilterEnabled(true); // Don't understand this
 
-            setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext()));
+            setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext())); //my custom adapter
+
+            //Set the listener, setOnItemClickListener is specific for ListViews, takes into account the position
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    currentItem = listItems.get(position); //instantiating the ListItem object to pass to intent, class variable
+                    startSecondActivity(view);
+                }
+            });
 
         }
     }
 
+    public void startSecondActivity(View view){
+
+        Intent intent = new Intent(this, SecondActivity.class);
+        intent.putExtra("currentItem", currentItem); //passes the ListItem object, will make use of the Parcelable version in SecondActivity
+        startActivityForResult(intent, GET_NAME_REQUEST_CODE);
+
+    }
+
     private ArrayList<ListItem> buildListItem (){
-        ArrayList<ListItem> listItems = new ArrayList<ListItem>();
+        listItems = new ArrayList<ListItem>();
 
         for (int i=0; i < handler.getTitles().size() ; i++ )
         {
-            ListItem currentItem = new ListItem(handler.getTitles().get(i), handler.getPublishDates().get(i));
+            ListItem currentItem = new ListItem(handler.getTitles().get(i), handler.getPublishDates().get(i),
+                                                handler.getContents().get(i), handler.getIds().get(i));
             listItems.add(currentItem);
         }
 
