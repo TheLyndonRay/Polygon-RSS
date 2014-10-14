@@ -11,19 +11,28 @@
         <TextView
             android:id="@+id/title2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/pub_date2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <TextView
+        <!-- <TextView
             android:id="@+id/content"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/> -->
+        <WebView
+            android:id="@+id/content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
         <TextView
             android:id="@+id/id_url"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:drawableTop="#000000"
+            android:textStyle="italic"/>
     </LinearLayout>
 </ScrollView>
 
