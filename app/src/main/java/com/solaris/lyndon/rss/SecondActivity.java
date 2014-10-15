@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,9 @@ public class SecondActivity extends Activity {
 
         //content.getSettings().setJavaScriptEnabled(true);
         content.loadDataWithBaseURL("", currentItem.getContent(), MIME_TYPE, ENCODING, "");
-        content.setOnClickListener(eventHandler);
+        //content.getSettings().setLoadWithOverviewMode(true);
+        //content.getSettings().setUseWideViewPort(true);
+        content.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         title.setOnClickListener(eventHandler);
         url.setOnClickListener(eventHandler);
