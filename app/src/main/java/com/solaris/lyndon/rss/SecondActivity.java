@@ -48,6 +48,7 @@ public class SecondActivity extends Activity {
 
         content.setWebChromeClient(new WebChromeClient()); // I'm trying to get iframe youtube elements to work
         content.setWebViewClient(new WebViewClient());
+        content.getSettings().setPluginState(WebSettings.PluginState.ON);
         content.getSettings().setJavaScriptEnabled(true);
 
         content.loadDataWithBaseURL("", resizeImages(currentItem.getContent()), MIME_TYPE, ENCODING, ""); // Loads the content data but shoves css styling in the head
