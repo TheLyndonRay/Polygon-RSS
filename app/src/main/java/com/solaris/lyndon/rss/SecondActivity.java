@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.apache.http.protocol.HTTP;
 
 
 public class SecondActivity extends Activity {
@@ -46,8 +46,11 @@ public class SecondActivity extends Activity {
         publishDate.setText(currentItem.getPublishDate());
         url.setText(currentItem.getUrl());
 
-        //content.getSettings().setJavaScriptEnabled(true);
-        content.loadDataWithBaseURL("", currentItem.getContent(), MIME_TYPE, ENCODING, "");
+        content.setWebChromeClient(new WebChromeClient()); // I'm trying to get iframe youtube elements to work
+        content.setWebViewClient(new WebViewClient());
+        content.getSettings().setJavaScriptEnabled(true);
+
+        content.loadDataWithBaseURL("", resizeImages(currentItem.getContent()), MIME_TYPE, ENCODING, ""); // Loads the content data but shoves css styling in the head
         //content.getSettings().setLoadWithOverviewMode(true);
         //content.getSettings().setUseWideViewPort(true);
         content.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
@@ -55,6 +58,11 @@ public class SecondActivity extends Activity {
         title.setOnClickListener(eventHandler);
         url.setOnClickListener(eventHandler);
 
+    }
+
+    protected String resizeImages(String bodyHTML) {
+        String head = "<head><style>img, iframe {max-width: 100%; width:auto; height: auto;}</style></head>";
+        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
 
     class EventHandler implements View.OnClickListener{

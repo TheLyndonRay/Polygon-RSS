@@ -10,6 +10,7 @@ public class ListItem implements Parcelable{
 
     protected String title, publishDate, content, url;
 
+    // ListItem main constructor
     public ListItem (String title, String publishDate, String content, String url){
 
         this.title = title;
