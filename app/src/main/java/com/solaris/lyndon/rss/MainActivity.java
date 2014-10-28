@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.xml.sax.InputSource;
@@ -20,9 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -161,6 +158,10 @@ public class MainActivity extends ListActivity {
             case R.id.all :
 
                 updateList("http://www.polygon.com/rss/index.xml");
+                break;
+            case R.id.settings :
+
+
                 break;
         }
         return super.onOptionsItemSelected(item);

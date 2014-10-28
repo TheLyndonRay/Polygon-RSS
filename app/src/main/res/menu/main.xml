@@ -17,4 +17,8 @@
         android:title="@string/all"
         android:orderInCategory="4"
         android:showAsAction="never" />
+    <item android:id="@+id/settings"
+        android:title="@string/settings"
+        android:orderInCategory="5"
+        android:showAsAction="never" />
 </menu>
