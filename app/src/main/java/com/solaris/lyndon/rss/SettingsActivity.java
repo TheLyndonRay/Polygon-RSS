@@ -15,7 +15,10 @@ public class SettingsActivity extends Activity{
 
     private SharedPreferences sp;
     protected String fontColor;
+    protected String backgroundColor;
+    protected boolean hideDate;
     protected int fontSize;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +37,20 @@ public class SettingsActivity extends Activity{
         fontColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fontColorSpinner.setAdapter(fontColorAdapter);
 
+        Spinner backgroundColorSpinner = (Spinner)findViewById(R.id.background_color_spinner);
+        ArrayAdapter<CharSequence> backgroundColorAdapter = ArrayAdapter.createFromResource(this, R.array.background_color_array, android.R.layout.simple_spinner_dropdown_item);
+        backgroundColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        backgroundColorSpinner.setAdapter(backgroundColorAdapter);
+
+        Spinner showDateSpinner = (Spinner)findViewById(R.id.date_spinner);
+        ArrayAdapter<CharSequence> showDateAdapater = ArrayAdapter.createFromResource(this, R.array.show_date_array, android.R.layout.simple_spinner_dropdown_item);
+        showDateAdapater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        showDateSpinner.setAdapter(showDateAdapater);
+
         FontSizeSpinnerHandler fontSizeSpinnerHandler = new FontSizeSpinnerHandler();
         FontColorSpinnerHandler fontColorSpinnerHandler = new FontColorSpinnerHandler();
+        BackgroundColorSpinnerHandler backgroundColorSpinnerHandler = new BackgroundColorSpinnerHandler();
+        ShowDateSpinnerHandler showDateSpinnerHandler = new ShowDateSpinnerHandler();
 
         fontColorSpinner.setOnItemSelectedListener(fontColorSpinnerHandler);
         fontSizeSpinner.setOnItemSelectedListener(fontSizeSpinnerHandler);
@@ -53,6 +68,8 @@ public class SettingsActivity extends Activity{
             case 30 :
                 fontSizeSpinner.setSelection(3);
                 break;
+            default :
+                fontSizeSpinner.setSelection(0);
         }
 
         if (sp.getString("fontColor", "").equals("#000000")){
@@ -63,10 +80,67 @@ public class SettingsActivity extends Activity{
             fontColorSpinner.setSelection(2);
         } else if (sp.getString("fontColor", "").equals("#A00BE6")){
             fontColorSpinner.setSelection(3);
+        } else {
+            fontColorSpinner.setSelection(0);
+        }
+
+        if (!sp.getBoolean("hideDate", false)){
+            showDateSpinner.setSelection(0);
+        } else {
+            showDateSpinner.setSelection(0);
         }
 
     }
 
+    class BackgroundColorSpinnerHandler implements AdapterView.OnItemSelectedListener{
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+            switch (pos){
+                case 0 :
+                    backgroundColor = "#FFFFFF";
+                    break;
+                case 1 :
+                    backgroundColor = "#999999";
+                    break;
+                case 2 :
+                    backgroundColor = "#FC83DC";
+                    break;
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+            backgroundColor = sp.getString("backgroundColor", "");
+        }
+    }
+
+    class ShowDateSpinnerHandler implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
+
+            switch (pos){
+                case 0 :
+                    hideDate = false;
+                    break;
+                case 1 :
+                    hideDate = true;
+                    break;
+                default :
+                    hideDate = false;
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+            hideDate = sp.getBoolean("hideDate", false);
+
+        }
+
+    }
 
 
     class FontSizeSpinnerHandler implements AdapterView.OnItemSelectedListener {
@@ -132,18 +206,22 @@ public class SettingsActivity extends Activity{
 
 
 
-    private void saveData (String color, int size){
+
+
+    private void saveData (String fColor, String bgColor, int size, boolean date){
 
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("fontColor", color);
+        editor.putString("fontColor", fColor);
+        editor.putString("backgroundColor", bgColor);
         editor.putInt("fontSize", size);
+        editor.putBoolean("hideDate", date);
         editor.commit();
 
     }
 
     @Override
     public void onBackPressed(){
-        saveData(fontColor, fontSize);
+        saveData(fontColor, backgroundColor, fontSize, hideDate);
         super.onBackPressed();
 
     }
@@ -166,7 +244,7 @@ public class SettingsActivity extends Activity{
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            saveData(fontColor, fontSize);
+            saveData(fontColor, backgroundColor, fontSize, hideDate);
 
 
         }

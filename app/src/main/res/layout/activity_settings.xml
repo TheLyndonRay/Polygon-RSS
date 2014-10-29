@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/font_color_label"
         android:text="@string/font_size"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
         android:textSize="20sp"/>
     <Spinner
         android:id="@+id/font_size_spinner"
@@ -37,6 +37,28 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/font_color_spinner"
         android:layout_toRightOf="@id/font_size_label">
+    </Spinner>
+    <TextView
+        android:id="@+id/background_color_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/font_size_label"
+        android:text="@string/background_color"
+        android:paddingTop="15dp"
+        android:paddingBottom="25dp"
+        android:textSize="20sp"/>
+    <Spinner
+        android:id="@+id/background_color_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/font_size_spinner"
+        android:layout_toRightOf="@id/background_color_label">
+    </Spinner>
+    <Spinner
+        android:id="@+id/date_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/background_color_label">
     </Spinner>
 
 </RelativeLayout>

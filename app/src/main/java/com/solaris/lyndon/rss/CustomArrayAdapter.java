@@ -22,15 +22,19 @@ public class CustomArrayAdapter extends ArrayAdapter<ListItem> {
     private Context context; //The context
     private int fontSize;
     private String fontColor;
+    private String backgroundColor;
+    private boolean hideDate;
     protected SharedPreferences sp;
 
     //The constructor takes in a List of type ListItem called listItems and the context
-    public CustomArrayAdapter(List<ListItem> listItems, Context context, String fontColor, int fontSize){
+    public CustomArrayAdapter(List<ListItem> listItems, Context context, String fontColor, String backgroundColor, int fontSize, boolean hideDate){
         super(context, R.layout.activity_main, listItems); //Inherits and passes these to its super
         this.listItems = listItems;
         this.context = context;
         this.fontColor = fontColor;
         this.fontSize = fontSize;
+        this.backgroundColor = backgroundColor;
+        this.hideDate = hideDate;
 
     }
 
@@ -49,10 +53,14 @@ public class CustomArrayAdapter extends ArrayAdapter<ListItem> {
         ListItem currentItem = listItems.get(position); // I don't understand how this works
 
         titleView.setText(currentItem.getTitle()); //Sets it
-        pubDateView.setText(currentItem.getPublishDate()); //Sets it
+
+        if (!hideDate){
+            pubDateView.setText(currentItem.getPublishDate()); //Sets it
+            pubDateView.setTextColor(Color.parseColor(fontColor));
+        }
+
 
         titleView.setTextColor(Color.parseColor(fontColor));
-        pubDateView.setTextColor(Color.parseColor(fontColor));
         titleView.setTextSize(fontSize);
 
 

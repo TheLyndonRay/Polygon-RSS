@@ -35,8 +35,10 @@ public class MainActivity extends ListActivity {
     protected ListView lv; // Needed in RSSFeeder class
 
     protected SharedPreferences sp;
-    private int fontSize;
-    private String fontColor; //This should be in hex
+    protected int fontSize;
+    protected String fontColor; //in hex
+    protected String backgroundColor; //in hex
+    protected boolean hideDate;
 
     protected ArrayList<ListItem> listItems;
     protected ListItem currentItem; // Used to pass to intent for SecondActivity
@@ -80,6 +82,9 @@ public class MainActivity extends ListActivity {
 
         fontSize = sp.getInt("fontSize", 0);
         fontColor = sp.getString("fontColor", "");
+        backgroundColor = sp.getString("backgroundColor", "");
+        hideDate = sp.getBoolean("hideDate", false);
+
     }
 
     protected void updateList (String newURL){
@@ -125,7 +130,7 @@ public class MainActivity extends ListActivity {
             lv = getListView(); // Don't understand this
             lv.setTextFilterEnabled(true); // Don't understand this
 
-            setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext(), fontColor, fontSize)); //my custom adapter
+            setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext(), fontColor, backgroundColor, fontSize, hideDate)); //my custom adapter
 
             //Set the listener, setOnItemClickListener is specific for ListViews, takes into account the position
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

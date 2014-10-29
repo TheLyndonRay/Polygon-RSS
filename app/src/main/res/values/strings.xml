@@ -13,6 +13,7 @@
     <string name="title_activity_settings">The Settings</string>
     <string name="font_color">Font color</string>
     <string name="font_size">Font size</string>
+    <string name="background_color">Background color</string>
 
     <string-array name="font_size_array">
         <item>Small</item>
@@ -26,6 +27,17 @@
         <item>Blue</item>
         <item>Red</item>
         <item>Purple</item>
+    </string-array>
+
+    <string-array name="background_color_array">
+        <item>White</item>
+        <item>Grey</item>
+        <item>Pink</item>
+    </string-array>
+
+    <string-array name="show_date_array">
+        <item>Show article dates</item>
+        <item>Hide article dates</item>
     </string-array>
 
 </resources>
