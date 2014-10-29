@@ -2,6 +2,7 @@ package com.solaris.lyndon.rss;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,10 @@ public class MainActivity extends ListActivity {
     public BufferedReader in; // Needed in RSSFeeder class
     protected ListView lv; // Needed in RSSFeeder class
 
+    protected SharedPreferences sp;
+    private int fontSize;
+    private String fontColor; //This should be in hex
+
     protected ArrayList<ListItem> listItems;
     protected ListItem currentItem; // Used to pass to intent for SecondActivity
 
@@ -44,14 +49,44 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        sp = getSharedPreferences("fontSettings", MODE_PRIVATE);
+        loadSettings();
+
         feedme = new RSSFeeder();
         feedme.execute();
 
     }
 
+    @Override
+    public void onResume(){
+
+        loadSettings();
+        updateList(currentURL);
+        super.onResume();
+    }
+
+    protected void loadSettings (){
+
+        /*if (sp.getString("fontColor", "") == null) {
+
+            fontSize = 20;
+            fontColor = "#000000";
+
+        } else {
+
+            fontSize = sp.getInt("fontSize", 0);
+            fontColor = sp.getString("fontColor", "");
+        }*/
+
+        fontSize = sp.getInt("fontSize", 0);
+        fontColor = sp.getString("fontColor", "");
+    }
+
     protected void updateList (String newURL){
 
-        lv.setAdapter(null);
+        if (lv != null) {
+            lv.setAdapter(null);
+        }
         currentURL = newURL;
         feedme = new RSSFeeder();
         feedme.execute();
@@ -90,7 +125,7 @@ public class MainActivity extends ListActivity {
             lv = getListView(); // Don't understand this
             lv.setTextFilterEnabled(true); // Don't understand this
 
-            setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext())); //my custom adapter
+            setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext(), fontColor, fontSize)); //my custom adapter
 
             //Set the listener, setOnItemClickListener is specific for ListViews, takes into account the position
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,7 +143,7 @@ public class MainActivity extends ListActivity {
 
         Intent intent = new Intent(this, SecondActivity.class);
         intent.putExtra("currentItem", currentItem); //passes the ListItem object, will make use of the Parcelable version in SecondActivity
-        startActivityForResult(intent, GET_NAME_REQUEST_CODE);
+        startActivity(intent);
 
     }
 

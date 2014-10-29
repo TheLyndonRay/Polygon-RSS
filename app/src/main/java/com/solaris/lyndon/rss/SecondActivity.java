@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -24,12 +23,15 @@ public class SecondActivity extends Activity {
     protected final String MIME_TYPE = "text/html";
     protected final String ENCODING = "UTF-8";
     protected ListItem intentCurrentItem;
+    protected SharedPreferences sp;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        sp = getSharedPreferences("fontSettings", MODE_PRIVATE);
 
         // Fetching data from a parcelable object passed from MainActivity
         ListItem currentItem = getIntent().getParcelableExtra("currentItem");
@@ -62,7 +64,7 @@ public class SecondActivity extends Activity {
     }
 
     protected String resizeImages(String bodyHTML) {
-        String head = "<head><style>img, iframe {max-width: 100%; width:auto; height: auto;}</style></head>";
+        String head = "<head><style>img, iframe {max-width: 100%; width:auto; height: auto;} p {font-size:" + sp.getInt("fontSize", 0) + "; color:" + sp.getString("fontColor", "") + "} </style></head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
 
@@ -91,7 +93,7 @@ public class SecondActivity extends Activity {
     }
 
 
-
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -110,4 +112,5 @@ public class SecondActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    */
 }

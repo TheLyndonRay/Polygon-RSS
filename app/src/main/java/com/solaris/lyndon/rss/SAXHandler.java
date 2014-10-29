@@ -1,7 +1,5 @@
 package com.solaris.lyndon.rss;
 
-import android.util.Log;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -29,7 +27,7 @@ public class SAXHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXParseException, SAXException {
-        Log.d("test", "startElement: qName is " + qName + ", localName is " + localName + ", URI " + uri);
+        //Log.d("test", "startElement: qName is " + qName + ", localName is " + localName + ", URI " + uri);
         if (qName.equals("entry")){
             inEntry = true;
         }

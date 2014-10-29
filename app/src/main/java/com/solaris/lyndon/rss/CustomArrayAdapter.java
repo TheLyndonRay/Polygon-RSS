@@ -1,6 +1,8 @@
 package com.solaris.lyndon.rss;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +20,18 @@ public class CustomArrayAdapter extends ArrayAdapter<ListItem> {
 
     private List<ListItem> listItems; // Holds a god damn ListItem list that was passed when the adapter was set
     private Context context; //The context
+    private int fontSize;
+    private String fontColor;
+    protected SharedPreferences sp;
 
     //The constructor takes in a List of type ListItem called listItems and the context
-    public CustomArrayAdapter(List<ListItem> listItems, Context context){
+    public CustomArrayAdapter(List<ListItem> listItems, Context context, String fontColor, int fontSize){
         super(context, R.layout.activity_main, listItems); //Inherits and passes these to its super
         this.listItems = listItems;
         this.context = context;
+        this.fontColor = fontColor;
+        this.fontSize = fontSize;
+
     }
 
     /* This will draw the view, I don't understand the parameters */
@@ -43,6 +51,13 @@ public class CustomArrayAdapter extends ArrayAdapter<ListItem> {
         titleView.setText(currentItem.getTitle()); //Sets it
         pubDateView.setText(currentItem.getPublishDate()); //Sets it
 
+        titleView.setTextColor(Color.parseColor(fontColor));
+        pubDateView.setTextColor(Color.parseColor(fontColor));
+        titleView.setTextSize(fontSize);
+
+
         return convertView;
     }
+
+
 }
