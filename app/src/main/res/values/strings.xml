@@ -21,4 +21,11 @@
         <item>X-Large</item>
     </string-array>
 
+    <string-array name="font_color_array">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Red</item>
+        <item>Purple</item>
+    </string-array>
+
 </resources>

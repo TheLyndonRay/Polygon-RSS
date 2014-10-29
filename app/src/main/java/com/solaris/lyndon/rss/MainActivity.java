@@ -34,7 +34,7 @@ public class MainActivity extends ListActivity {
     protected ListView lv; // Needed in RSSFeeder class
 
     protected ArrayList<ListItem> listItems;
-    protected ListItem currentItem;
+    protected ListItem currentItem; // Used to pass to intent for SecondActivity
 
     RSSFeeder feedme;
     SAXHandler handler;
@@ -112,6 +112,12 @@ public class MainActivity extends ListActivity {
 
     }
 
+    public void startSettingsActivity(){
+
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(intent, GET_NAME_REQUEST_CODE);
+    }
+
     private ArrayList<ListItem> buildListItem (){
         listItems = new ArrayList<ListItem>();
 
@@ -161,7 +167,7 @@ public class MainActivity extends ListActivity {
                 break;
             case R.id.settings :
 
-
+                startSettingsActivity();
                 break;
         }
         return super.onOptionsItemSelected(item);

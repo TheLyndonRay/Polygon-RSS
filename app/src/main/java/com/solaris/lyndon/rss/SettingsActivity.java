@@ -19,6 +19,11 @@ public class SettingsActivity extends Activity {
         ArrayAdapter<CharSequence> fontSizeAdapter = ArrayAdapter.createFromResource(this, R.array.font_size_array, android.R.layout.simple_spinner_item);
         fontSizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fontSizeSpinner.setAdapter(fontSizeAdapter);
+
+        Spinner fontColorSpinner = (Spinner)findViewById(R.id.font_color_spinner);
+        ArrayAdapter<CharSequence> fontColorAdapater = ArrayAdapter.createFromResource(this, R.array.font_color_array, android.R.layout.simple_spinner_dropdown_item);
+        fontColorAdapater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        fontColorSpinner.setAdapter(fontColorAdapater);
     }
 
 
