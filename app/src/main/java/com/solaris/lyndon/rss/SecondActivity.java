@@ -64,7 +64,7 @@ public class SecondActivity extends Activity {
     }
 
     protected String resizeImages(String bodyHTML) {
-        String head = "<head><style>img, iframe {max-width: 100%; width:auto; height: auto;} p {font-size:" + sp.getInt("fontSize", 0) + "; color:" + sp.getString("fontColor", "") + "} </style></head>";
+        String head = "<head><style>img, iframe {max-width: 100%; width:auto; height: auto;} p {font-size:" + sp.getInt("fontSize", 0) + "; color:" + sp.getString("fontColor", "") + "; background-color:" + sp.getString("backgroundColor", "") + ";} </style></head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
 

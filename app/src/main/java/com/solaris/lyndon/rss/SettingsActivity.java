@@ -43,9 +43,9 @@ public class SettingsActivity extends Activity{
         backgroundColorSpinner.setAdapter(backgroundColorAdapter);
 
         Spinner showDateSpinner = (Spinner)findViewById(R.id.date_spinner);
-        ArrayAdapter<CharSequence> showDateAdapater = ArrayAdapter.createFromResource(this, R.array.show_date_array, android.R.layout.simple_spinner_dropdown_item);
-        showDateAdapater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        showDateSpinner.setAdapter(showDateAdapater);
+        ArrayAdapter<CharSequence> showDateAdapter = ArrayAdapter.createFromResource(this, R.array.show_date_array, android.R.layout.simple_spinner_dropdown_item);
+        showDateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        showDateSpinner.setAdapter(showDateAdapter);
 
         FontSizeSpinnerHandler fontSizeSpinnerHandler = new FontSizeSpinnerHandler();
         FontColorSpinnerHandler fontColorSpinnerHandler = new FontColorSpinnerHandler();
@@ -54,7 +54,10 @@ public class SettingsActivity extends Activity{
 
         fontColorSpinner.setOnItemSelectedListener(fontColorSpinnerHandler);
         fontSizeSpinner.setOnItemSelectedListener(fontSizeSpinnerHandler);
+        showDateSpinner.setOnItemSelectedListener(showDateSpinnerHandler);
+        backgroundColorSpinner.setOnItemSelectedListener(backgroundColorSpinnerHandler);
 
+        //Sets the selection of the spinners to whatever they were set to last
         switch (sp.getInt("fontSize", 0)){
             case 15 :
                 fontSizeSpinner.setSelection(0);
@@ -72,6 +75,7 @@ public class SettingsActivity extends Activity{
                 fontSizeSpinner.setSelection(0);
         }
 
+        //Sets the selection of the spinners to whatever they were set to last
         if (sp.getString("fontColor", "").equals("#000000")){
             fontColorSpinner.setSelection(0);
         } else if (sp.getString("fontColor", "").equals("#3842CF")){
@@ -84,10 +88,20 @@ public class SettingsActivity extends Activity{
             fontColorSpinner.setSelection(0);
         }
 
+        //Sets the selection of the spinners to whatever they were set to last
         if (!sp.getBoolean("hideDate", false)){
             showDateSpinner.setSelection(0);
         } else {
-            showDateSpinner.setSelection(0);
+            showDateSpinner.setSelection(1);
+        }
+
+        //Sets the selection of the spinners to whatever they were set to last
+        if (sp.getString("backgroundColor", "").equals("#FFFFFF")){
+            backgroundColorSpinner.setSelection(0);
+        } else if (sp.getString("backgroundColor", "").equals("#999999")){
+            backgroundColorSpinner.setSelection(1);
+        } else if (sp.getString("backgroundColor", "").equals("#FC83DC")) {
+            backgroundColorSpinner.setSelection(2);
         }
 
     }
@@ -128,8 +142,6 @@ public class SettingsActivity extends Activity{
                 case 1 :
                     hideDate = true;
                     break;
-                default :
-                    hideDate = false;
             }
         }
 
@@ -150,19 +162,19 @@ public class SettingsActivity extends Activity{
             switch (pos) {
                 case 0 :
                     fontSize = 15;
-                    Toast.makeText(getApplicationContext(), "" + fontSize + " is the font size", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "" + fontSize + " is the font size", Toast.LENGTH_SHORT).show();
                     break;
                 case 1 :
                     fontSize = 20;
-                    Toast.makeText(getApplicationContext(), "" + fontSize + " is the font size", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "" + fontSize + " is the font size", Toast.LENGTH_SHORT).show();
                     break;
                 case 2 :
                     fontSize = 25;
-                    Toast.makeText(getApplicationContext(), "" + fontSize + " is the font size", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "" + fontSize + " is the font size", Toast.LENGTH_SHORT).show();
                     break;
                 case 3 :
                     fontSize = 30;
-                    Toast.makeText(getApplicationContext(), "" + fontSize + " is the font size", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "" + fontSize + " is the font size", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -181,19 +193,19 @@ public class SettingsActivity extends Activity{
             switch (pos) {
                 case 0 :
                     fontColor = "#000000";
-                    Toast.makeText(getApplicationContext(), "Black is the current font color", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Black is the current font color", Toast.LENGTH_SHORT).show();
                     break;
                 case 1 :
                     fontColor = "#3842CF";
-                    Toast.makeText(getApplicationContext(), "Blue is the current font color", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Blue is the current font color", Toast.LENGTH_SHORT).show();
                     break;
                 case 2 :
                     fontColor = "#FA0C64";
-                    Toast.makeText(getApplicationContext(), "Red is the current font color", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Red is the current font color", Toast.LENGTH_SHORT).show();
                     break;
                 case 3 :
                     fontColor = "#A00BE6";
-                    Toast.makeText(getApplicationContext(), "Purple is the current font color", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Purple is the current font color", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -207,7 +219,7 @@ public class SettingsActivity extends Activity{
 
 
 
-
+    // Saves data to my SP
     private void saveData (String fColor, String bgColor, int size, boolean date){
 
         SharedPreferences.Editor editor = sp.edit();
@@ -219,6 +231,7 @@ public class SettingsActivity extends Activity{
 
     }
 
+    // The back button calls the saveData method to save my stuff
     @Override
     public void onBackPressed(){
         saveData(fontColor, backgroundColor, fontSize, hideDate);
@@ -244,6 +257,7 @@ public class SettingsActivity extends Activity{
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == android.R.id.home) {
+            // The UP button calls the saveData method to save my stuff
             saveData(fontColor, backgroundColor, fontSize, hideDate);
 
 

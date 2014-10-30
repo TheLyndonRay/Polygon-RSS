@@ -3,6 +3,7 @@ package com.solaris.lyndon.rss;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ public class CustomArrayAdapter extends ArrayAdapter<ListItem> {
         this.backgroundColor = backgroundColor;
         this.hideDate = hideDate;
 
+
+
     }
 
     /* This will draw the view, I don't understand the parameters */
@@ -56,12 +59,15 @@ public class CustomArrayAdapter extends ArrayAdapter<ListItem> {
 
         if (!hideDate){
             pubDateView.setText(currentItem.getPublishDate()); //Sets it
-            pubDateView.setTextColor(Color.parseColor(fontColor));
+
+        } else {
+            pubDateView.setText("");
         }
 
-
-        titleView.setTextColor(Color.parseColor(fontColor));
         titleView.setTextSize(fontSize);
+        pubDateView.setTextColor(Color.parseColor(fontColor));
+        titleView.setTextColor(Color.parseColor(fontColor));
+
 
 
         return convertView;

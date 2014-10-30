@@ -3,6 +3,7 @@ package com.solaris.lyndon.rss;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,11 +35,11 @@ public class MainActivity extends ListActivity {
     public BufferedReader in; // Needed in RSSFeeder class
     protected ListView lv; // Needed in RSSFeeder class
 
-    protected SharedPreferences sp;
-    protected int fontSize;
-    protected String fontColor; //in hex
-    protected String backgroundColor; //in hex
-    protected boolean hideDate;
+    public SharedPreferences sp;
+    public int fontSize;
+    public String fontColor; //in hex
+    public String backgroundColor; //in hex
+    public boolean hideDate;
 
     protected ArrayList<ListItem> listItems;
     protected ListItem currentItem; // Used to pass to intent for SecondActivity
@@ -69,29 +70,35 @@ public class MainActivity extends ListActivity {
 
     protected void loadSettings (){
 
-        /*if (sp.getString("fontColor", "") == null) {
+        // Checks to see if any of my SP settings are empty, sets defaults if they are or whatever is in SP
+        if (!sp.contains("backgroundColor") || !sp.contains("fontSize") || !sp.contains("fontColor") || !sp.contains("hideDate")) {
 
             fontSize = 20;
             fontColor = "#000000";
+            backgroundColor = "#FFFFFF";
+            hideDate = false;
+            Log.d("IN THE IF", "HUUUUUUUUUUUURRRRRRRR");
 
         } else {
 
             fontSize = sp.getInt("fontSize", 0);
             fontColor = sp.getString("fontColor", "");
-        }*/
+            backgroundColor = sp.getString("backgroundColor", "");
+            hideDate = sp.getBoolean("hideDate", false);
+            Log.d("IN THE ELSE", "HUUUUUUUUUUUURRRRRRRR");
+        }
 
-        fontSize = sp.getInt("fontSize", 0);
-        fontColor = sp.getString("fontColor", "");
-        backgroundColor = sp.getString("backgroundColor", "");
-        hideDate = sp.getBoolean("hideDate", false);
+
 
     }
 
     protected void updateList (String newURL){
 
+        // Clears adapter if it wasn't already null
         if (lv != null) {
             lv.setAdapter(null);
         }
+
         currentURL = newURL;
         feedme = new RSSFeeder();
         feedme.execute();
@@ -128,7 +135,9 @@ public class MainActivity extends ListActivity {
         protected void onPostExecute(Void result) {
 
             lv = getListView(); // Don't understand this
+            lv.setBackgroundColor(Color.parseColor(backgroundColor));
             lv.setTextFilterEnabled(true); // Don't understand this
+
 
             setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext(), fontColor, backgroundColor, fontSize, hideDate)); //my custom adapter
 
