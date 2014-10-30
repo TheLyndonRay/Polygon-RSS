@@ -24,7 +24,6 @@ public class ListItem implements Parcelable{
 
     4 hours in the god damn API
     The next set of lines are for Parcelables. I needed this to pass ListItem objects via Intents
-    ASK JODI FOR HELP ON EXPLAINING THESE
 
     */
 
