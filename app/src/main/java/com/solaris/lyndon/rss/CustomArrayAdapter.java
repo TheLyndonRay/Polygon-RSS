@@ -3,7 +3,6 @@ package com.solaris.lyndon.rss;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,14 +36,12 @@ public class CustomArrayAdapter extends ArrayAdapter<ListItem> {
         this.backgroundColor = backgroundColor;
         this.hideDate = hideDate;
 
-
-
     }
 
     /* This will draw the view, I don't understand the parameters */
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // If convertVie is null, it will create it by making an inflater and then inflating it with activity_main's XML settings
+        // If convertView is null, it will create it by making an inflater and then inflating it with activity_main's XML settings
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.activity_main, parent, false);
