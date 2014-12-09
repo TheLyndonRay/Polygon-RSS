@@ -66,7 +66,7 @@ public class ListItem implements Parcelable{
 
     /*
 
-    END OF THE PARCELABLE BULLSHITS
+    END OF THE PARCELABLE STUFF
 
     */
 

@@ -138,7 +138,6 @@ public class MainActivity extends ListActivity {
             lv.setBackgroundColor(Color.parseColor(backgroundColor));
             lv.setTextFilterEnabled(true); // Don't understand this
 
-
             setListAdapter(new CustomArrayAdapter(buildListItem(), getApplicationContext(), fontColor, backgroundColor, fontSize, hideDate)); //my custom adapter
 
             //Set the listener, setOnItemClickListener is specific for ListViews, takes into account the position
